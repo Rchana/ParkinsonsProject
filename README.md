@@ -1,7 +1,5 @@
 # ParkinsonsProject
 Detection of freezing of gate during walking, that triggers sensor output through Arduino interface 
-<<<<<<< HEAD
-=======
 
 ## Group Members:
 - Arrchana (Detection algorithm, Arduino & MATLAB interface)
@@ -9,4 +7,3 @@ Detection of freezing of gate during walking, that triggers sensor output throug
 - Laura (Circuit design & Arduino Interface)
 - Daphne (Software Architecture)
 - Charly (Prototype design & hardware integration)
->>>>>>> origin/master
