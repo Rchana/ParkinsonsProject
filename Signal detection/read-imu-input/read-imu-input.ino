@@ -1,6 +1,6 @@
 #include <Wire.h> // use the wire library
 int mpu = 0x68; // I2C address of MPU-6050
-int16_t GyY;
+int16_t AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ;
 
 void setup() {
   Serial.begin(9600); // initiate serial communication for sensor data
