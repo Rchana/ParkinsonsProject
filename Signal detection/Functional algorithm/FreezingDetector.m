@@ -16,8 +16,11 @@ classdef FreezingDetector < handle
             fd.indicesOfSigPeriods = [];
         end
         
-        function result = getGy(fd)
-            % if length of Gy is greater than 5/0.03, set Gy = []
+        function append(fd,currentGy)
+            fd.Gy(end + 1) = currentGy;
+            if length(Gy) > 5/0.03
+                fd.Gy = fd.Gy([2:end]);
+            end
         end
         
         function getGyFromFile(fd,file)
@@ -96,7 +99,7 @@ classdef FreezingDetector < handle
                 if fd.amplitudes(index) < 100 && fd.periods(index) < 20
                     count = count + 1;
                 end
-                if count > 5
+                if count > 3
                     disp('freezing')
                     count = 0;
                 end
@@ -108,6 +111,6 @@ classdef FreezingDetector < handle
             time = time.*0.03;
             figure
             plot(time, fd.Gyave),xlabel('Time (s)'), ylabel('Gy Filtered');
-        end
+        end 
     end
 end
