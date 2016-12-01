@@ -23,7 +23,6 @@ void loop() {
   GyX = Wire.read() <<8|Wire.read();
   GyY = Wire.read() <<8|Wire.read();
   GyZ = Wire.read() <<8|Wire.read();
-  Serial.print(GyY);
-  Serial.print('\n');
+  Serial.println(GyY/131.0);
   delay(30); //33
 }

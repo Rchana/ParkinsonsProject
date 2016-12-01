@@ -1,5 +1,5 @@
 fd = FreezingDetector();
-% fd.getGyFromFile('freezing1.txt');
+fd.getGyFromFile('freezing1.txt');
 
 % construct Arduino object, serial communication on Port COM18
 arduino=serial('COM3','BaudRate',9600);
