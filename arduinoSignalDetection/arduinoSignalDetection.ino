@@ -1,11 +1,12 @@
 #include <Wire.h>
 #include "pitches.h" //Header file with pitch definitions
-const int SPEAKER=10; 
+const int SPEAKER = 10; //Speker Pin
+//Note Array
+int notes[] = {NOTE_D4, NOTE_C4};
+//The Duration of each note (in ms)
+int times[] = {250, 250};
 const int MOTOR = 9;
-const int led = 13; //onboard LED
-int noteHigh = NOTE_E3;
-int noteLow = NOTE_A4;
-int time = 250; //amount of time speaker buzzes for
+const int led = 12; //onboard LED
 int speed = 0;
 int mpu = 0x68;
 int16_t AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ;
@@ -23,9 +24,13 @@ int prevZeroIndex = 0;
 
 
 void setup() {
-//  pinMode(MOTOR, OUTPUT);
-//  pinMode(led, OUTPUT);
-//  tone (SPEAKER, noteHigh, time); //speaker buzzes to show that system is setup and ready
+  pinMode(MOTOR, OUTPUT);
+  pinMode(led, OUTPUT);
+  //Play each note for the right duration
+  for (int i = 0; i < 2; i++) {
+    tone(SPEAKER, notes[i], times[i]);
+    delay(times[i]);
+  }
   Serial.begin(9600);
   Wire.begin();
   Wire.beginTransmission(mpu);
@@ -48,23 +53,24 @@ void loop() {
   GyZ = Wire.read() << 8 | Wire.read();
   currGy = filter(GyY/131.0);
   append(currGy);
+  Serial.println(currGy);
   // freezingOfGait will call your alogrithm which we'll say returns a boolean
-  if (count >= 3) { // freezing of gait detected
-//    speed = 250; //255 is max motor speed, 250 to be safe
-//    analogWrite(MOTOR, speed);
-//    digitalWrite(led, HIGH);
-//    tone(SPEAKER, noteHigh, time);
-    count = 0;
+  if (count == 3) { // freezing of gait detected
     Serial.println("Freezing");
-//    delay(time); 
+    speed = 250; //255 is max motor speed, 250 to be safe
+    analogWrite(MOTOR, speed);
+    digitalWrite(led, HIGH);
+    for (int i = 0; i < 2; i++) {
+      tone(SPEAKER, notes[i], times[i]);
+      delay(times[i]);
+    }
+    count = 0;
   }
-//  else {
-//    speed = 0;
-//    analogWrite(MOTOR, speed);
-//    digitalWrite(led, LOW);
-//    tone(SPEAKER, noteLow, time);
-//    delay(time);  
-//  }
+  else {
+    speed = 0;
+    analogWrite(MOTOR, speed);
+    digitalWrite(led, LOW);
+  }
   prevGy = currGy;
   index++;
   delay(30);
@@ -77,20 +83,14 @@ long filter(long Gy) {
 
 void append(long currentGy) {
   if (currentGy == 0 || currentGy * prevGy < 0) {
-    if (index - zerosIndices[0] > 1) { // not stopping
+    if (index - prevZeroIndex > 1) { // not stopping
       if (zerosIndices[1] != 0) {
         period = index - zerosIndices[0];
         zerosIndices[0] = index;
         zerosIndices[1] = 0;
         amplitude += localMaxGy;
         localMaxGy = 0;
-        Serial.print("amplitude: ");
-        Serial.println(amplitude);
-        Serial.print("period: ");
-        Serial.println(period);
         if (isFreezing()) count++;
-        Serial.print("count: ");
-        Serial.println(count);
         amplitude = 0.0;
         period = 0;
       }
