@@ -2,14 +2,13 @@
 Detection of freezing of gate during walking, that triggers sensor output through Arduino interface 
 
 ## Group Members:
-- Arrchana (Detection algorithm, Arduino & MATLAB interface)
-- Zoe (Detection algorithm, Arduino & MATLAB interface)
-- Laura (Circuit design & Arduino Interface)
-- Daphne (Software Architecture)
-- Charly (Prototype design & hardware integration)
+- Arrchana (Detection algorithm, software design analysis)
+- Zoe (Detection algorithm, MATLAB to Arduino conversion)
+- Laura (Circuit design & Arduino hardware interface)
+- Daphne (Software Architecture, LaTex master)
+- Charly (Prototype design, hardware design analysis)
 
 ## What's in the repo:
-- "Hardware & prototype" = pictures of our design
-- "Signal detection" = the original signal detection algorithm created on matlab
-- "arduinoSignalDetection" = the final code required to run the project independently on the arduino
-- "debugging buzzer music" = music created to play on our buzzer while we were busy at works... just for giggles
+- "Documentation" = a folder containing a presentation, design analysis, and required files to update LaTex documentation
+- "Process work" = a bunch of subfolders containing all files involved in the development of the final design contained in "arduinoSignalDetection"
+- "arduinoSignalDetection" = code required to run the project independently on the Arduino
