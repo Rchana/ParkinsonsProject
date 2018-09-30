@@ -1,8 +1,8 @@
 # ParkinsonsProject
-Detection of freezing of gate during walking, that triggers sensor output through Arduino interface 
+A device that detects freezing of gate (shuffled walking) patterns using real-time accelerometer data and a novel algorithm. If the algorithm detects FOG, a motor is triggered to apply a vibrating stimulus to the muscles to alleviate pain.
 
 ## Group Members:
-- Arrchana (Detection algorithm, software design analysis)
+- Arrchana (Detection algorithm, signal analysis, MATLAB to Arduino conversion)
 - Zoe (Detection algorithm, MATLAB to Arduino conversion)
 - Laura (Circuit design & Arduino hardware interface)
 - Daphne (Software Architecture, LaTex master)
